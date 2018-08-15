@@ -12,7 +12,7 @@
                 <div class="col-md-4">.col-md-4</div>
             </div>
             <div class="row row-cols">
-                <div class="col-md-6">.col-md-6</div>
+                <div class="col-md-6">.casasdasdasdasd</div>
                 <div class="col-md-3">.ASODPKAPOSDKPOA</div>
                 <div class="col-md-3">.ASODPKAPOSDKPOA</div>
             </div>

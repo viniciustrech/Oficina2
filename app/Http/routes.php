@@ -1,7 +1,7 @@
 <?php
 
 
-Route::get('/', 'SiteController@index');
+Route::get('/home', 'SiteController@index');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

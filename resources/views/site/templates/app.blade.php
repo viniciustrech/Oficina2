@@ -21,7 +21,7 @@
     <![endif]-->
 </head>
 <body>
-@include("includes.top")
+@include("site.includes.top")
 @yield('content')
 
 <!-- Scripts -->

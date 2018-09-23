@@ -1,7 +1,7 @@
 <?php
 
 
-Route::get('/home', 'SiteController@index');
+Route::get('/', 'SiteController@index');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
@@ -20,5 +20,4 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
         Route::post('update', 'UsuariosController@update2');
         Route::get('destroy', 'UsuariosController@destroy');
     });
-
 });

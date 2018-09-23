@@ -1,4 +1,4 @@
-@extends('app')
+@extends('painel.templates.app')
 
 @section('content')
 <div class="container-fluid">

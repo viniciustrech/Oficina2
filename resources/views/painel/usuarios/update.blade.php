@@ -9,7 +9,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <form action="{{url('painel/usuarios/update?id='.Input::get('id'))}}" method="POST">
+                                <form action="{{url('painel/usuarios/'.$item->id).'/update'}}" method="POST">
                                     <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                                     <div class="form-group">

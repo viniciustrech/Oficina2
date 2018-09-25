@@ -41,7 +41,7 @@ return [
 	|
 	*/
 
-	'table' => 'users',
+	'table' => 'tusers',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -60,7 +60,7 @@ return [
 
 	'password' => [
 		'email' => 'emails.password',
-		'table' => 'password_resets',
+		'table' => 'tuserspasswordreset',
 		'expire' => 60,
 	],
 

@@ -4,6 +4,7 @@ use App\User;
 use Input;
 use Hash;
 use Auth;
+use Route;
 
 class UsuariosController extends Controller
 {
@@ -14,7 +15,16 @@ class UsuariosController extends Controller
 
     public function index()
     {
-        $itens = User::paginate(15);
+        $itens = User::orderBy('created_at', 'desc');
+
+        if (Input::has("busca")) {
+            $itens = User::where(function ($query) {
+                $query->where('name', 'like', '%' . Input::get("busca") . '%')
+                    ->orWhere('email', 'like', '%' . Input::get("busca") . '%');
+            });
+        }
+
+        $itens = $itens->paginate(15);
 
         return view('painel.usuarios.index', compact('itens'));
     }
@@ -42,14 +52,14 @@ class UsuariosController extends Controller
 
     public function update()
     {
-        $item = User::find(Input::get('id'));
+        $item = User::find(Route::input('id'));
 
         return view('painel.usuarios.update', compact('item'));
     }
 
     public function update2()
     {
-        $update = User::find(Input::get('id'));
+        $update = User::find(Route::input('id'));
 
         $update->name = Input::get('name');
         $update->email = Input::get('email');
@@ -60,12 +70,12 @@ class UsuariosController extends Controller
 
         $update->save();
 
-        return redirect('painel/usuarios')->with('success', 'Registro adicionado com sucesso!');
+        return redirect('painel/usuarios')->with('success', 'Registro alterado com sucesso!');
     }
 
     public function destroy()
     {
-        User::find(Input::get('id'))->delete();
+        User::find(Route::input('id'))->delete();
 
         return redirect('painel/usuarios')->with('success', 'Registro excluido com sucesso!');
     }

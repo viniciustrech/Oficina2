@@ -8,19 +8,27 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Laravel</a>
+            <a class="navbar-brand" href="#">Painel de Controle</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 @if (!Auth::guest())
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-expanded="false">Usuários <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/painel/usuarios') }}">Listar</a></li>
-                            <li><a href="{{ url('/painel/usuarios/create') }}">Adicionar</a></li>
-                        </ul>
+                        <a href="{{url('/painel/eventos')}}" role="button"
+                           aria-expanded="false"><i class="fa fa-gear" aria-hidden="true"></i> Eventos</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="{{url('/painel/noticias')}}" role="button"
+                           aria-expanded="false"><i class="fa fa-gear" aria-hidden="true"></i> Notícias</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="{{url('/painel/paginas')}}" role="button"
+                           aria-expanded="false"><i class="fa fa-gear" aria-hidden="true"></i> Páginas</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="{{url('/painel/usuarios')}}" role="button"
+                           aria-expanded="false"><i class="fa fa-gear" aria-hidden="true"></i> Usuários</a>
                     </li>
                 @endif
             </ul>

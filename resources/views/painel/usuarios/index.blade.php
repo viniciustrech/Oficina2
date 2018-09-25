@@ -1,50 +1,117 @@
-@extends('painel.templates.app')
-
+@extends("painel.templates.app")
 @section('content')
-    <div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Editar Usuários
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{url('painel')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="{{url('painel')}}/usuarios">Usuários</a></li>
+            <li class="active">Editar</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Usuários
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th class="col-sm-1 text-center">#</th>
-                                <th class="col-sm-5">Nome</th>
-                                <th class="col-sm-5">E-mail</th>
-                                <th class="col-sm-1 text-center">#</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if(count(@$itens) > 0)
-                                @foreach($itens as $item)
+            <div class="col-md-12">
+                <a href="{{url('painel')}}/usuarios/create" class="btn btn-primary btn-lg margin-bottom"><i
+                            class="fa fa-plus"></i> Adicionar</a>
+            </div>
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="with-border"></div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="col-sm-4 col-sm-offset-8">
+                            <form action="{{url('painel')}}/usuarios" method="GET">
+                                <div class="input-group">
+                                    <input type="text" name="busca" id="busca" class="form-control"
+                                           placeholder="Buscar por..." value="{{Input::get('busca')}}">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default">Buscar</button>
+                                    </div>
+                                </div><!-- /input-group -->
+                                <div class="clearfix">&nbsp;</div>
+                            </form>
+                        </div>
+                        <div class="col-sm-12">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-sm-12 table-responsive" style="min-height: 300px;">
+                            <table class="table table-bordered table-hover" style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <th class="col-sm-1 text-center">#</th>
+                                    {{--<th class="col-sm-1 text-center">Imagem</th>--}}
+                                    <th class="col-sm-4">Nome</th>
+                                    <th class="col-sm-4 text-center">E-mail</th>
+                                    <th class="col-sm-1">#</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if(count(@$itens) > 0)
+                                    @foreach($itens as $item)
+                                        <tr>
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                        <span class="fa fa-bars"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="primary">
+                                                            <a href="{{url('painel')}}/usuarios/{{$item->id}}/update">
+                                                                <i class="fa fa-edit">&nbsp;</i>Alterar Dados
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td style="vertical-align: middle">{{$item->name}}</td>
+                                            <td style="vertical-align: middle">{{$item->email}}</td>
+
+                                            <td class="text-center" style="vertical-align: middle">
+                                                <a href="{{url('painel')}}/usuarios/{{$item->id}}/destroy"
+                                                   class="btn btn-danger btn-sm btn-destroy"><i
+                                                            class="fa fa-close"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td class="text-center" style="vertical-align: middle;">
-                                            <a href="{{url('painel/usuarios/update?id='.$item->id)}}" class="btn btn-primary">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                        <td style="vertical-align: middle;">{{$item->name}}</td>
-                                        <td style="vertical-align: middle;">{{$item->email}}</td>
-                                        <td class="text-center" style="vertical-align: middle;">
-                                            <a href="{{url('painel/usuarios/destroy?id='.$item->id)}}" class="btn btn-danger">
-                                                <i class="fa fa-remove"></i>
-                                            </a>
+                                        <td class="text-center" colspan="7">
+                                            Nenhum Registro Encontrado
                                         </td>
                                     </tr>
-                                @endforeach
-                            @endif
-                            </tbody>
-                        </table>
+                                @endif
+                                </tbody>
+                            </table>
+
+
+                        </div>
                     </div>
-                    <div class="panel-footer">
-                        {!! $itens->render() !!}
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
                     </div>
+
                 </div>
+                <!-- /.box -->
             </div>
         </div>
-    </div>
+        <!-- /.row -->
+    </section><!-- /.content -->
+
 @endsection

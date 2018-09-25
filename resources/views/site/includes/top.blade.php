@@ -14,14 +14,18 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-expanded="false">Menu <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">sub menu</a></li>
-                        <li><a href="#">sub menu</a></li>
-                    </ul>
+                    <a href="{{url('/sobre')}}" role="button"
+                       aria-expanded="false">Sobre</a>
                 </li>
-                <li><a href="#">Menu</a></li>
+                <li class="dropdown">
+                    <a href="{{url('/noticias')}}" role="button"
+                       aria-expanded="false">Notícias</a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{url('/eventos')}}" role="button"
+                       aria-expanded="false">Eventos</a>
+                </li>
+                <li><a href="{{url('/contato')}}">Contato</a></li>
             </ul>
         </div>
     </div>

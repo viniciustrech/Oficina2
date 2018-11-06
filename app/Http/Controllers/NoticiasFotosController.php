@@ -33,8 +33,6 @@ class NoticiasFotosController extends Controller
             $foto->updated_at = date('Y-m-d H:i:s');
             $foto->save();
 
-            $this->save_log("UP", "tNoticiasFotos", Route::input('id_fot'));
-
             return 1;
         } else {
             return 0;
@@ -60,8 +58,6 @@ class NoticiasFotosController extends Controller
 
             $codigo = $foto->FotCodigo;
 
-            $this->save_log("C", "tNoticiasFotos", $codigo);
-
             $upload->resize(Input::file('file'), public_path() . "/upload/noticias/g_" . $codigo . ".jpg", getenv("TamGW"), getenv("TamGH"));
             $upload->resize(Input::file('file'), public_path() . "/upload/noticias/p_" . $codigo . ".jpg", getenv("TamPW"), getenv("TamPH"));
 
@@ -83,14 +79,12 @@ class NoticiasFotosController extends Controller
     {
         NoticiasFotos::where('FotCodigo', '=', Route::input('id_fot'))->delete();
 
-        $this->save_log("D", "tNoticiasFotos", Route::input('id_fot'));
-
         $query_string = array(
             "busca" => Input::get("busca"),
             "page" => Input::get("page")
         );
 
-        return redirect(getenv("PAINEL") . '/noticias/' . Route::input('id_not') . '/fotos?' . http_build_query($query_string))->with('success', 'Registro excluido com sucesso!');
+        return redirect(url('painel') . '/noticias/' . Route::input('id_not') . '/fotos?' . http_build_query($query_string))->with('success', 'Registro excluido com sucesso!');
     }
 
     public function destaque()
@@ -109,7 +103,6 @@ class NoticiasFotosController extends Controller
                     $update->FotDestaque = 1;
                 }
 
-                $this->save_log("U", $update->getTable(), $update);
                 $update->save();
             }
 
@@ -117,9 +110,9 @@ class NoticiasFotosController extends Controller
             $noticia->updated_at = date('Y-m-d H:i:s');
             $noticia->save();
 
-            return redirect(getenv("PAINEL") . '/noticias/' . Route::input('id_not') . '/fotos')->with('success', 'Registro alterado com sucesso!');
+            return redirect(url('painel') . '/noticias/' . Route::input('id_not') . '/fotos')->with('success', 'Registro alterado com sucesso!');
         }
-        return redirect(getenv("PAINEL") . '/noticias/' . Route::input('id_not') . '/fotos')->with('error', 'Não foi possível alterar foto destaque!');
+        return redirect(url('painel') . '/noticias/' . Route::input('id_not') . '/fotos')->with('error', 'Não foi possível alterar foto destaque!');
     }
 
     public function legenda()
@@ -132,7 +125,6 @@ class NoticiasFotosController extends Controller
 
             $update->save();
 
-            $this->save_log("U", $update->getTable(), $update);
 
             if ($update->FotDestaque == 1) {
 

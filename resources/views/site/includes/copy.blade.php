@@ -1,28 +1,41 @@
-<nav class="navbar navbar-default">
+<section class="section-rodape">
+
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Laravel</a>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="item-copy">
+
+                    <div class="box-left">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    </div>
+                    <div class="box-right">
+                        <p>Estrada Para Boa Esperança - Km 08<br>
+                            CEP 85660-000 - Dois Vizinhos - Paraná</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="item-copy">
+                    <div class="box-left">
+                        <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+                    </div>
+                    <div class="box-right">
+                        <p>(46) 3520-1959</p>
+                    </div>
+                </div>
+                <div>
+                    <p><a href="contato" class="contato">Entre em Contato</a></p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="direitos">
+                    2018 © Todos os direitos reservados
+                </div>
+            </div>
         </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-expanded="false">Menu <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">sub menu</a></li>
-                        <li><a href="#">sub menu</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Menu</a></li>
-            </ul>
-        </div>
     </div>
-</nav>
+</section>

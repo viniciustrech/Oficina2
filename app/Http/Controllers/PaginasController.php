@@ -47,15 +47,12 @@ class PaginasController extends Controller
         $create = new Paginas;
 
         $create->PagTitulo = Input::get('titulo');
-        $create->PagUrl = strtolower($url);
         $create->PagResumo = Input::get('resumo');
         $create->PagConteudo = Input::get('conteudo');
 
         $create->save();
 
-        $this->save_log("C", $create->getTable(), $create);
-
-        return redirect(getenv("PAINEL") . '/paginas')->with('success', 'Registro incluído com sucesso!');
+        return redirect(url('painel') . '/paginas')->with('success', 'Registro incluído com sucesso!');
     }
 
     public function update()
@@ -75,14 +72,12 @@ class PaginasController extends Controller
 
         $update->save();
 
-        $this->save_log("U", $update->getTable(), $update);
-
         $query_string = array(
             "busca" => Input::get("busca"),
             "page" => Input::get("page")
         );
 
-        return redirect(getenv("PAINEL") . '/paginas?' . http_build_query($query_string))->with('success', 'Registro alterado com sucesso!');
+        return redirect(url('painel') . '/paginas?' . http_build_query($query_string))->with('success', 'Registro alterado com sucesso!');
     }
 
     public function destroy()
@@ -91,19 +86,17 @@ class PaginasController extends Controller
 
         foreach ($itens as $item) {
             PaginasFotos::where('PagCodigo', '=', $item->FotCodigo)->delete();
-            $this->save_log("D", "tpaginasfotos", $item->FotCodigo);
         }
 
         Paginas::where('PagCodigo', '=', Route::input('id_pag'))->delete();
 
-        $this->save_log("D", "tpaginas", Route::input('id_pag'));
 
         $query_string = array(
             "busca" => Input::get("busca"),
             "page" => Input::get("page")
         );
 
-        return redirect(getenv("PAINEL") . '/paginas?' . http_build_query($query_string))->with('success', 'Registro excluido com sucesso!');
+        return redirect(url('painel') . '/paginas?' . http_build_query($query_string))->with('success', 'Registro excluido com sucesso!');
     }
 
 }

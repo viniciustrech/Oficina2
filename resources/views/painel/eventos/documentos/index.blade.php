@@ -5,7 +5,7 @@
 
             <section class="content-header">
                 <h1>
-                    Gerenciar Fotos Eventos
+                    Gerenciar Documentos Eventos
                 </h1>
             </section>
         </div>
@@ -15,10 +15,11 @@
         <div class="row">
             <section class="content">
                 <div class="col-md-12">
-                    <a data-href="{{url('painel')}}/eventos/{{Route::input('id_eve')}}/fotos/multiploupload"
-                       class="btn btn-primary btn-lg btn-upload-multiplo-modal margin-bottom" data-multiplo="true">
-                        <i class="fa fa-plus"></i> Adicionar Fotos
-                    </a>
+                        <a href="javascript:;"
+                           class="btn btn-primary btn-lg btn-upload-multiplo-modal margin-bottom"
+                           data-href="{{url("painel")}}/eventos/{{Route::input('id_eve')}}/multiploupload" data-multiplo="true">
+                            <i class="fa fa-upload"></i>&nbsp;Enviar Arquivos
+                        </a>
                 </div>
                 <div class="col-md-12">
                     <div class="box box-primary">
@@ -40,8 +41,8 @@
                                 <table class="table table-bordered table-hover" style="width: 100%">
                                     <thead>
                                     <tr>
-                                        <th class="col-sm-3 text-center">Imagem</th>
-                                        <th class="col-sm-8">Legenda</th>
+                                        <th class="col-sm-3 text-center">Doc</th>
+                                        <th class="col-sm-8">Título</th>
                                         <th class="col-sm-1 text-center">#</th>
                                     </tr>
                                     </thead>
@@ -49,34 +50,23 @@
                                     @if(count(@$itens) > 0)
                                         @foreach($itens as $item)
                                             <tr>
-                                                <td class="text-center"
-                                                    style="vertical-align: middle; position: relative;">
-                                                    <img src="{{asset("/upload/eventos/p_".$item->FotCodigo.".jpg?cache=".date("Ymdhis", strtotime($item->updated_at)))}}"
-                                                         class="img-responsive center-block">
-                                                    <div style="text-align: left !important;position: absolute; bottom: 0px; left:0px; padding: 3px;background-color: rgba(255,255,255, 0.9); width: 100%;">
-                                                        <a href="{{url('painel')}}/eventos/{{Route::input('id_eve')}}/fotos/{{$item->FotCodigo}}/destaque"
-                                                           class="btn btn-sm {{($item->FotDestaque == 1) ? "btn-success":"btn-default"}}  btn-destaque "
-                                                           data-toggle="tooltip" data-placement="right" title=""
-                                                           data-original-title="Imagem destaque"><i
-                                                                    class="fa {{($item->FotDestaque == 1) ? "fa-star":"fa-star-o"}}"></i></a>
-                                                        <a data-href="{{url('painel')}}/eventos/{{Route::input('id_eve')}}/fotos/{{$item->FotCodigo}}/upload"
-                                                           class="btn btn-sm btn-primary  btn-upload-multiplo-modal"
-                                                           data-toggle="tooltip" data-placement="right" title=""
-                                                           data-original-title="Alterar foto"><i
-                                                                    class="fa fa-file-image-o"></i></a>
-                                                    </div>
+                                                <td style="vertical-align: middle">
+                                                    <a href="{{asset("upload/documentos/".$item->DocArquivo)}}"
+                                                       class="btn cor2-bg branco btn-sm center-block" target="_blank">
+                                                        <i class="fa fa-file-pdf-o fa-2x"></i> {{$item->DocTitulo}}
+                                                    </a>
                                                 </td>
                                                 <td style="vertical-align: middle">
-                                                    <div class="form-group form{{$item->FotCodigo}}">
+                                                    <div class="form-group form{{$item->DocCodigo}}">
                                                         <input type="text" class="form-control legenda" maxlength="300"
-                                                               value="{{$item->FotLegenda}}" name="legenda" id="legenda"
-                                                               data-id="{{$item->FotCodigo}}"
-                                                               data-href="{{url('painel')}}/eventos/{{Route::input('id_eve')}}/fotos/{{$item->FotCodigo}}/legenda">
-                                                        <span class="help-block span{{$item->FotCodigo}} hidden"></span>
+                                                               value="{{$item->DocTitulo}}" name="legenda" id="legenda"
+                                                               data-id="{{$item->DocCodigo}}"
+                                                               data-href="{{url('painel')}}/eventos/{{Route::input('id_eve')}}/documentos/{{$item->DocCodigo}}/legenda">
+                                                        <span class="help-block span{{$item->DocCodigo}} hidden"></span>
                                                     </div>
                                                 </td>
                                                 <td class="text-center" style="vertical-align: middle">
-                                                    <a href="{{url('painel')}}/eventos/{{Route::input('id_eve')}}/fotos/{{$item->FotCodigo}}/destroy"
+                                                    <a href="{{url('painel')}}/eventos/{{Route::input('id_eve')}}/documentos/{{$item->DocCodigo}}/destroy"
                                                        class="btn btn-danger btn-sm btn-destroy"><i
                                                                 class="fa fa-close"></i></a>
                                                 </td>

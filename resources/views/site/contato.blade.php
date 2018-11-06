@@ -14,8 +14,22 @@
                     </p>
                 </div>
                 <div class="col-md-6">
+                    <div class="col-sm-12">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                    </div>
+
                     <h4 class="text-center">Entre em contato conosco preenchendo o formulário abaixo.</h4> <br>
                     <div class="clearfix visible-xs">&nbsp;</div>
+
                     <form role="form" action="{{url('/contato')}}" method="post">
 
                         <div class="col-sm-12">
@@ -46,7 +60,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="g-recaptcha"
-                                     data-sitekey="6LdrB2wUAAAAAH8Ttb3WGfSEJUtrzN5ZpX4ld5DR"></div>
+                                     data-sitekey="{{getenv('CAP-KEY')}}"></div>
                             </div>
                         </div>
 

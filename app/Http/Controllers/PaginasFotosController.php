@@ -39,28 +39,24 @@ class PaginasFotosController extends Controller
         $update->FotLegenda = $request->input('legenda');
         $update->save();
 
-        $this->save_log("U", $update->getTable(), $update);
-
         $query_string = array(
             "busca" => Input::get("busca"),
             "page" => Input::get("page")
         );
 
-        return redirect(getenv("PAINEL") . '/paginas/' . Route::input('id_pag') . '/fotos?' . http_build_query($query_string))->with('success', 'Registro alterado com sucesso!');
+        return redirect(url('painel') . '/paginas/' . Route::input('id_pag') . '/fotos?' . http_build_query($query_string))->with('success', 'Registro alterado com sucesso!');
     }
 
     public function destroy()
     {
         PaginasFotos::where('FotCodigo', '=', Route::input('id_fot'))->delete();
 
-        $this->save_log("D", "tpaginasfotos", Route::input('id_fot'));
-
         $query_string = array(
             "busca" => Input::get("busca"),
             "page" => Input::get("page")
         );
 
-        return redirect(getenv("PAINEL") . '/paginas/' . Route::input('id_pag') . '/fotos?' . http_build_query($query_string))->with('success', 'Registro excluido com sucesso!');
+        return redirect(url('painel') . '/paginas/' . Route::input('id_pag') . '/fotos?' . http_build_query($query_string))->with('success', 'Registro excluido com sucesso!');
     }
 
     public function upload(Upload $upload)
@@ -73,8 +69,6 @@ class PaginasFotosController extends Controller
             $foto = PaginasFotos::find(Route::input('id_fot'));
             $foto->updated_at = date('Y-m-d H:i:s');
             $foto->save();
-
-            $this->save_log("UP", "tpaginasfotos", Route::input('id_fot'));
 
             return 1;
         } else {
@@ -136,7 +130,6 @@ class PaginasFotosController extends Controller
                     $update->FotDestaque = 1;
                 }
 
-                $this->save_log("U", $update->getTable(), $update);
                 $update->save();
             }
 
@@ -144,9 +137,9 @@ class PaginasFotosController extends Controller
             $noticia->updated_at = date('Y-m-d H:i:s');
             $noticia->save();
 
-            return redirect(getenv("PAINEL") . '/paginas/' . Route::input('id_pag') . '/fotos')->with('success', 'Registro alterado com sucesso!');
+            return redirect(url('painel') . '/paginas/' . Route::input('id_pag') . '/fotos')->with('success', 'Registro alterado com sucesso!');
         }
-        return redirect(getenv("PAINEL") . '/paginas/' . Route::input('id_pag') . '/fotos')->with('error', 'Não foi possível alterar foto destaque!');
+        return redirect(url('painel') . '/paginas/' . Route::input('id_pag') . '/fotos')->with('error', 'Não foi possível alterar foto destaque!');
     }
 
     public function legenda()
@@ -159,7 +152,6 @@ class PaginasFotosController extends Controller
 
             $update->save();
 
-            $this->save_log("U", $update->getTable(), $update);
 
             if ($update->FotDestaque == 1) {
 

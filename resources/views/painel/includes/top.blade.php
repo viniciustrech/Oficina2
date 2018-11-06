@@ -27,6 +27,10 @@
                            aria-expanded="false"><i class="fa fa-gear" aria-hidden="true"></i> Páginas</a>
                     </li>
                     <li class="dropdown">
+                        <a href="{{url('/painel/contatos')}}" role="button"
+                           aria-expanded="false"><i class="fa fa-gear" aria-hidden="true"></i> Contatos</a>
+                    </li>
+                    <li class="dropdown">
                         <a href="{{url('/painel/usuarios')}}" role="button"
                            aria-expanded="false"><i class="fa fa-gear" aria-hidden="true"></i> Usuários</a>
                     </li>

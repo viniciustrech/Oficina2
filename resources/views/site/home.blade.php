@@ -1,13 +1,46 @@
-@extends('site.templates.app')
-@section('content')
+@extends("site.templates.app")
+@section("title","Página Inicial")
+@section("content")
+    <section class="section-home">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
+                    Teste<br>
 
-    <div class="container">
-        <div class="content">
-            <div class="col-md-12 menu-top">TESTE</div>
-            <div class="col-md-12 menu-top">TESTE</div>
-            <div class="col-md-12 menu-top">TESTE</div>
-            <div class="col-md-12 menu-top">TESTE</div>
-            <div class="col-md-12 menu-top"></div>
-        </div>
-    </div>
+                </div>
+
+
+
+            </div><!--row-->
+        </div><!--container-->
+    </section><!--section-->
 @endsection

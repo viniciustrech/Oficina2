@@ -1,7 +1,8 @@
 <?php
 
-
+Route::get('/', 'SiteController@index');
 Route::get('/home', 'SiteController@index');
+Route::get('/documentos', 'SiteController@documentos');
 Route::get('/contato', 'SiteController@contato');
 Route::post('/contato', 'SiteController@contato2');
 Route::get('/noticias', 'SiteController@noticias');
@@ -9,6 +10,7 @@ Route::get('/noticia/{id_not}', 'SiteController@noticia');
 Route::get('/eventos', 'SiteController@eventos');
 Route::get('/evento/{id_eve}', 'SiteController@evento');
 Route::get('/sobre', 'SiteController@sobre');
+Route::get('/p/{page}', 'SiteController@paginas');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
@@ -18,6 +20,12 @@ Route::controllers([
 Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
 
     Route::get('/', 'DashboardController@index');
+
+    Route::group(['prefix' => 'contatos'], function () {
+        Route::get('/', 'ContatosController@index');
+        Route::get('/{id_con}/view', 'ContatosController@view');
+        Route::get('/{id_con}/destroy', 'ContatosController@destroy');
+    });
 
     Route::group(['prefix' => 'usuarios'], function () {
         Route::get('/', 'UsuariosController@index');
@@ -57,6 +65,7 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
         Route::post('/{id_eve}/update', 'EventosController@update2');
         Route::get('/{id_eve}/destroy', 'EventosController@destroy');
         Route::get('/{id_eve}/liberado', 'EventosController@liberado');
+        Route::post('/{id_eve}/multiploupload', 'EventosController@multiploupload');
 
         Route::group(['prefix' => '/{id_eve}/fotos'], function () {
             Route::get('/', 'EventosFotosController@index');
@@ -67,6 +76,14 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
             Route::post('/{id_fot}/upload', 'EventosFotosController@upload');
             Route::get('/{id_fot}/destaque', 'EventosFotosController@destaque');
             Route::get('/{id_fot}/legenda', 'EventosFotosController@legenda');
+        });
+
+        Route::group(['prefix' => '/{id_eve}/documentos'], function () {
+            Route::get('/', 'EventosDocumentosController@index');
+            Route::get('/{id_doc}/update', 'EventosDocumentosController@update');
+            Route::post('/{id_doc}/update', 'EventosDocumentosController@update2');
+            Route::get('/{id_doc}/destroy', 'EventosDocumentosController@destroy');
+            Route::get('/{id_doc}/legenda', 'EventosDocumentosController@legenda');
         });
     });
 
@@ -91,7 +108,6 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
             Route::get('/{id_fot}/update', 'PaginasFotosController@update');
             Route::post('/{id_fot}/update', 'PaginasFotosController@update2');
             Route::get('/{id_fot}/destroy', 'PaginasFotosController@destroy');
-            Route::post('/{id_fot}/upload', 'PaginasFotosController@upload');
             Route::get('/{id_fot}/destaque', 'PaginasFotosController@destaque');
             Route::get('/{id_fot}/legenda', 'PaginasFotosController@legenda');
         });

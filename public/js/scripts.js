@@ -8,19 +8,6 @@ $(window).ready(function(){
     $(".btn-upload-multiplo-modal").on("click", function () {
         $("#uploadMultiploModal").modal("show");
         $("#uploadMultiploModal #uploadModalForm").attr("action", $(this).attr("data-href"));
-
-        if($(this).attr("data-multiplo")){
-            $("#uploadMultiploModal #uploadModalForm #files").prop("multiple",true);
-        }else{
-            $("#uploadMultiploModal #uploadModalForm #files").prop("multiple",false);
-        }
-
-        if($(this).attr("data-arquivo")){
-            $("#uploadMultiploModal #uploadModalForm #files").attr("data-arquivo", 1);
-        }else{
-            $("#uploadMultiploModal #uploadModalForm #files").attr("data-arquivo", 0);
-        }
-
     });
 
     $("#uploadModal #uploadModalForm").on('submit', function () {
@@ -29,17 +16,10 @@ $(window).ready(function(){
     });
 
     $(".btn-destroy").click(function(e){
-       if(!confirm("Deseja excluir esse Registro")){
-           e.preventDefault();
-           return false;
-       }
-    });
-
-    $(".btn-liberado").click(function(e){
-       if(!confirm("Deseja alterar esse Registro")){
-           e.preventDefault();
-           return false;
-       }
+        if(!confirm("Deseja excluir esse Registro")){
+            e.preventDefault();
+            return false;
+        }
     });
 
     $(".btn-upload-banco-imagens").on("click", function () {

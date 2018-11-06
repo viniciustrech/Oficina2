@@ -41,15 +41,12 @@ class NoticiasController extends Controller
         $create->NotTitulo = Input::get('titulo');
         $create->NotResumo = Input::get('resumo');
         $create->NotConteudo = Input::get('conteudo');
-        $create->NotLegendaFoto = Input::get('legenda');
         $create->NotFonte = Input::get('fonte');
         $create->NotLiberado = Input::get('liberado');
 
         $create->save();
 
-        $this->save_log("C", $create->getTable(), $create);
-
-        return redirect(getenv("PAINEL") . "/noticias")->with('success', 'Registro incluído com sucesso!');
+        return redirect(url('painel') . "/noticias")->with('success', 'Registro incluído com sucesso!');
     }
 
     public function update()
@@ -68,34 +65,30 @@ class NoticiasController extends Controller
         $update->NotTitulo = Input::get('titulo');
         $update->NotResumo = Input::get('resumo');
         $update->NotConteudo = Input::get('conteudo');
-        $update->NotLegendaFoto = Input::get('legenda');
         $update->NotFonte = Input::get('fonte');
         $update->NotLiberado = Input::get('liberado');
 
         $update->save();
-
-        $this->save_log("U", $update->getTable(), $update);
 
         $query_string = array(
             "busca" => Input::get("busca"),
             "page" => Input::get("page")
         );
 
-        return redirect(getenv("PAINEL") . "/noticias?" . http_build_query($query_string))->with('success', 'Registro alterado com sucesso!');
+        return redirect(url('painel') . "/noticias?" . http_build_query($query_string))->with('success', 'Registro alterado com sucesso!');
     }
 
     public function destroy()
     {
         Noticias::where('NotCodigo', '=', Route::input('id_not'))->delete();
 
-        $this->save_log("D", "tnoticias", Route::input('id_not'));
 
         $query_string = array(
             "busca" => Input::get("busca"),
             "page" => Input::get("page")
         );
 
-        return redirect(getenv("PAINEL") . "/noticias?" . http_build_query($query_string))->with('success', 'Registro excluido com sucesso!');
+        return redirect(url('painel') . "/noticias?" . http_build_query($query_string))->with('success', 'Registro excluido com sucesso!');
     }
 
     public function liberado()

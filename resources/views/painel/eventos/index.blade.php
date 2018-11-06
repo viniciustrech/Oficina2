@@ -1,21 +1,23 @@
 @extends("painel.templates.app")
 @section('content')
-    <section class="content-header">
-        <h1>
-            Editar Eventos
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{url('painel')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="{{url('painel')}}/eventos"> Eventos</a></li>
-            <li class="active">Editar</li>
-        </ol>
-    </section>
-    <section class="content">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <a href="{{url('painel')}}/eventos/create" class="btn btn-primary btn-lg margin-bottom">
-                    <i class="fa fa-plus"></i> Adicionar
-                </a>
+            <section class="content-header">
+                <h1>
+                    Gerenciar Eventos
+                </h1>
+
+            </section>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{url('painel')}}/eventos/create" class="btn btn-primary btn-lg margin-bottom">
+                        <i class="fa fa-microphone"></i>&nbsp;Cadastrar Evento
+                    </a>
+                </div>
             </div>
             <div class="col-md-12">
                 <div class="box box-primary">
@@ -66,31 +68,30 @@
                                                     <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                             data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
-                                                        <span class="fa fa-bars"></span>
+                                                        <span class="fa fa-microphone"></span>
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li class="primary">
                                                             <a href="{{url('painel')}}/eventos/{{$item->EveCodigo}}/update">
-                                                                <i class="fa fa-edit">&nbsp;</i>Alterar Dados
+                                                                <i class="fa fa-info-circle">&nbsp;</i>Conteúdo
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a href="{{url('painel')}}/eventos/{{$item->EveCodigo}}/fotos">
-                                                                <i class="fa fa-camera">&nbsp;</i>Galeria de Fotos
+                                                                <i class="fa fa-file-image-o">&nbsp;</i>Fotos
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{url('painel')}}/eventos/{{$item->EveCodigo}}/documentos">
+                                                                <i class="fa fa-file-pdf-o">&nbsp;</i>Documentos
                                                             </a>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </td>
                                             <td class="text-center" style="vertical-align: middle">
-                                                <a href="javascript:void(0);" title="<center>Imagem Atual</center>"
-                                                   data-toggle="popover"
-                                                   data-placement="bottom"
-                                                   data-html="true" data-trigger="focus"
-                                                   data-content='<img src="{{asset("/upload/eventos/p_".@$item->destaque->FotCodigo.".jpg?cache=".date("YmdHis"), strtotime(@$item->destaque->updated_at))}}" class=img-responsive>'>
-                                                    <img src="{{asset("/upload/eventos/p_".@$item->destaque->FotCodigo.".jpg?cache=".date("YmdHis"), strtotime(@$item->destaque->updated_at))}}"
-                                                         class="img-responsive">
-                                                </a>
+                                                <img src="{{asset("/upload/eventos/p_".@$item->destaque->FotCodigo.".jpg?cache=".date("YmdHis"))}}"
+                                                     class="img-responsive">
                                             </td>
                                             <td style="vertical-align: middle">
                                                 {{date("d/m/Y",strtotime($item->EveData))}}
@@ -100,11 +101,8 @@
                                             </td>
                                             <td class="text-center"
                                                 style="vertical-align: middle">
-                                                <button type="button"
-                                                        class="btn {{($item->EveLiberado == 1) ? "btn-info" : "btn-warning" }} liberar"
-                                                        data-href="{{url('painel')}}/eventos/{{$item->EveCodigo}}/liberado">
-                                                    {{($item->EveLiberado == 1) ? "SIM" : "NÃO" }}
-                                                </button>
+                                                <i class="fa {{($item->EveLiberado == 1) ? "fa-check" : "fa-close" }}"></i>
+
                                             </td>
                                             <td class="text-center" style="vertical-align: middle">
                                                 <a href="{{url('painel')}}/eventos/{{$item->EveCodigo}}/destroy"

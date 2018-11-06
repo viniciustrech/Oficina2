@@ -11,31 +11,24 @@ $(document).ready(function ($) {
     var i = 0;
 
     $("#files").change(function () {
-        arquivo = $(this).attr("data-arquivo");
-
-        if (!$("#files").prop("multiple")) {
-            lista_imagens = new Array();
-        }
         files = $(this).prop("files");
 
         $.each(files, function (i, data) {
-            data["arquivo"] = arquivo;
             lista_imagens.push(data);
-            lista_length = lista_imagens.length;
-            monta_tabela();
         });
+
+        lista_length = lista_imagens.length;
+        monta_tabela();
     });
 
-    var ajaxUpload = function (resizedImage) {
+    var upload = function (i) {
+        data = lista_imagens[i];
         //token = lista_imagens[i]['token'];
         token = $('meta[name="csrf-token"]').attr('content');
         url = $("#uploadMultiploModal #uploadModalForm").attr("action");
 
-        //console.log(window.URL.createObjectURL(resizedImage));
-        //return false;
-
         form = new FormData();
-        form.append('file', resizedImage);
+        form.append('file', data);
         form.append('_token', token);
 
         $.ajax({
@@ -82,88 +75,9 @@ $(document).ready(function ($) {
                 }
                 return myXhr;
             }
-        });
+        })
+        ;
     };
-
-
-    var upload = function (i) {
-        data = lista_imagens[i];
-
-        if (data["arquivo"] == "true") {
-
-            ajaxUpload(data);
-        } else {
-
-            var file = resizeImage({
-                file: data,
-                maxSize: 1600
-            }).then(function (resizedImage) {
-                ajaxUpload(resizedImage);
-            }).catch(function (err) {
-                console.error(err);
-            });
-
-        }
-
-
-    };
-
-
-    var resizeImage = function (settings) {
-        var file = settings.file;
-        var maxSize = settings.maxSize;
-        var reader = new FileReader();
-        var image = new Image();
-        var canvas = document.createElement('canvas');
-
-        var dataURItoBlob = function (dataURI) {
-            var bytes = dataURI.split(',')[0].indexOf('base64') >= 0 ?
-                atob(dataURI.split(',')[1]) :
-                unescape(dataURI.split(',')[1]);
-            var mime = dataURI.split(',')[0].split(':')[1].split(';')[0];
-            var max = bytes.length;
-            var ia = new Uint8Array(max);
-            for (var i = 0; i < max; i++)
-                ia[i] = bytes.charCodeAt(i);
-            return new Blob([ia], {type: 'image/png'});
-        };
-
-        var resize = function () {
-            var width = image.width;
-            var height = image.height;
-            if (width > height) {
-                if (width > maxSize) {
-                    height *= maxSize / width;
-                    width = maxSize;
-                }
-            } else {
-                if (height > maxSize) {
-                    width *= maxSize / height;
-                    height = maxSize;
-                }
-            }
-            canvas.width = width;
-            canvas.height = height;
-
-            canvas.getContext('2d').drawImage(image, 0, 0, width, height);
-            var dataUrl = canvas.toDataURL('image/png');
-            return dataURItoBlob(dataUrl);
-        };
-        return new Promise(function (ok, no) {
-            //if (!file.type.match(/image.*/)) {
-            //no(new Error("Not an image"));
-            //return "";
-            //}
-            reader.onload = function (readerEvent) {
-                image.onload = function () {
-                    return ok(resize());
-                };
-                image.src = readerEvent.target.result;
-            };
-            reader.readAsDataURL(file);
-        });
-    };
-
 
     $('.btn-start-upload').click(function () {
         if (lista_length > 0 && i == 0) {
@@ -176,7 +90,6 @@ $(document).ready(function ($) {
         $("#lista-files tbody").remove();
         tbody = $("<tbody/>");
         $.each(lista_imagens, function (i, data) {
-
             //renderImage(i, data);
             tr = $("<tr/>");
             progress = $("<div/>").addClass("progress");
@@ -204,7 +117,6 @@ $(document).ready(function ($) {
     });
 
 });
-
 
 // render the image in our view
 function renderImage(i, file) {

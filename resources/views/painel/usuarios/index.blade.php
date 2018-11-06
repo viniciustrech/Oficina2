@@ -1,22 +1,22 @@
 @extends("painel.templates.app")
 @section('content')
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Editar Usuários
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{url('painel')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="{{url('painel')}}/usuarios">Usuários</a></li>
-            <li class="active">Editar</li>
-        </ol>
-    </section>
-    <!-- Main content -->
-    <section class="content">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <a href="{{url('painel')}}/usuarios/create" class="btn btn-primary btn-lg margin-bottom"><i
-                            class="fa fa-plus"></i> Adicionar</a>
+            <section class="content-header">
+                <h1>
+                    Gerenciar Usuários
+                </h1>
+            </section>
+        </div>
+    </div>
+    <!-- Main content -->
+    <div class="container">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{url('painel')}}/usuarios/create" class="btn btn-primary btn-lg margin-bottom"><i class="fa fa-user"></i>&nbsp;Cadastrar Usuário</a>
+                </div>
             </div>
             <div class="col-md-12">
                 <!-- general form elements -->
@@ -55,8 +55,8 @@
                                     <th class="col-sm-1 text-center">#</th>
                                     {{--<th class="col-sm-1 text-center">Imagem</th>--}}
                                     <th class="col-sm-4">Nome</th>
-                                    <th class="col-sm-4 text-center">E-mail</th>
-                                    <th class="col-sm-1">#</th>
+                                    <th class="col-sm-4">E-mail</th>
+                                    <th class="col-sm-1 text-center">#</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -68,12 +68,12 @@
                                                     <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
                                                             data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
-                                                        <span class="fa fa-bars"></span>
+                                                        <span class="fa fa-user"></span>
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li class="primary">
                                                             <a href="{{url('painel')}}/usuarios/{{$item->id}}/update">
-                                                                <i class="fa fa-edit">&nbsp;</i>Alterar Dados
+                                                                <i class="fa fa-info-circle">&nbsp;</i>Conteúdo
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -110,8 +110,8 @@
                 </div>
                 <!-- /.box -->
             </div>
-        </div>
-        <!-- /.row -->
+    </div>
+    <!-- /.row -->
     </section><!-- /.content -->
 
 @endsection

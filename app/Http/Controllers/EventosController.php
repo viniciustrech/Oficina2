@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+use App\Documentos;
 use App\Eventos;
+use App\EventosFotos;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\NoticiasFotos;
@@ -30,7 +32,7 @@ class EventosController extends Controller
             });
         }
 
-        $itens = $itens->paginate(15);
+        $itens = $itens->paginate(5);
 
         return view("painel.eventos.index", compact('itens'));
     }
@@ -75,7 +77,7 @@ class EventosController extends Controller
 
         $update->save();
 
-         return redirect(url('painel') . "/eventos")->with('success', 'Registro alterado com sucesso!');
+        return redirect(url('painel') . "/eventos")->with('success', 'Registro alterado com sucesso!');
     }
 
     public function destroy()
@@ -90,10 +92,64 @@ class EventosController extends Controller
         $update = Eventos::find(Route::input('id_eve'));
 
         if (count(@$update) > 0) {
-            $update->EveLiberado = ($update->EveLiberado == 1)? "0":"1";
+            $update->EveLiberado = ($update->EveLiberado == 1) ? "0" : "1";
             $update->save();
 
             return $update->EveLiberado;
+        }
+    }
+
+
+    public function multiploupload()
+    {
+
+        if (Input::hasFile('file')) {
+
+            $create = new Documentos();
+
+            $create->DocEveCodigo = Route::input('id_eve');
+            $create->updated_at = date('Y-m-d h:i:s');
+
+            $create->save();
+
+            $_UP['pasta'] = 'upload/documentos/';
+            $_UP['extensoes'] = array('xls', 'doc', 'docx', 'esl', 'pdf', 'zip', 'rar');
+
+            $_UP['erros'][0] = 'Não houve erro';
+            $_UP['erros'][1] = 'O arquivo no upload é maior do que o limite do PHP';
+            $_UP['erros'][2] = 'O arquivo ultrapassa o limite de tamanho especifiado no HTML';
+            $_UP['erros'][3] = 'O upload do arquivo foi feito parcialmente';
+            $_UP['erros'][4] = 'Não foi feito o upload do arquivo';
+
+            if ($_FILES['file']['error'] != 0) {
+                return 0;
+            }
+
+            $nome = explode('.', $_FILES['file']['name']);
+            $extensao = strtolower($nome[count($nome) - 1]);
+
+            if (array_search($extensao, $_UP['extensoes']) === false) {
+                return 0;
+            }
+
+            $nome_final = $create->DocCodigo . '.' . $extensao;
+
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $_UP['pasta'] . $nome_final)) {
+
+                $arquivo2 = Documentos::find($create->DocCodigo);
+
+                $arquivo2->DocArquivo = $nome_final;
+                $arquivo2->updated_at = date('Y-m-d h:i:s');
+
+                $arquivo2->save();
+                return 1;
+            } else {
+                return 0;
+            }
+
+            return 1;
+        } else {
+            return 0;
         }
     }
 }

@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Laravel</title>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
@@ -26,9 +27,6 @@
 <body>
 	@include("painel.includes.top")
 	@yield('content')
-
-
-	<!-- Modal Upload -->
 	<div class="modal" id="uploadModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -67,8 +65,8 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.Modal Upload -->
-	<!-- Modal Upload Multiplo-->
+
+
 	<div class="modal" id="uploadMultiploModal">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -78,7 +76,6 @@
 							<form id="uploadModalForm" action="" method="post" enctype="multipart/form-data">
 								<div class="form-group text-center">
 									<div class="col-sm-8 col-sm-offset-2">
-                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
 										<h2>Arquivos/Fotos</h2>
 									</div>
 								</div>
@@ -151,33 +148,47 @@
 	<script src="{{asset("js/scripts.js")}}"></script>
 
 	<script>
-
 		$(function(){
             $('.date').inputmask('99/99/9999');
             $('.hora').inputmask('99:99');
             $('.cep').inputmask('99999-999');
             $('.telefone').inputmask('(99) 9999-9999[9]');
 
-
-
-            $('.liberar').click(function (e) {
-                var _this = $(this);
-                var dataHref = _this.attr('data-href');
-
-                if (!confirm("Deseja alterar esse registro?")) {
-                    e.preventDefault();
-                    return false;
-                }
+            $('.legenda').change(function () {
+                var id_fot = $(this).attr('data-id');
+                var href = $(this).attr('data-href');
+                var legenda = $(this).val();
 
                 $.ajax({
                     type: "GET",
-                    url: dataHref,
-                    success: function (data) {
-                        if (data == 1) {
-                            _this.html("SIM").removeClass("btn-warning").addClass("btn-info");
-                        } else {
-                            _this.html("NÃO").addClass("btn-warning").removeClass("btn-info");
-                        }
+                    url: href,
+                    data: {
+                        legenda: legenda
+                    }
+                }).done(function (data) {
+
+                    if (data == 1) {
+                        $('.form' + id_fot).addClass('has-success')
+                        setTimeout(function () {
+                            $('.form' + id_fot).removeClass('has-success')
+                        }, 3000);
+
+                        $('.span' + id_fot).removeClass('hidden').html('Registro atualizado com sucesso!')
+                        setTimeout(function () {
+                            $('.span' + id_fot).addClass('hidden')
+                        }, 3000);
+
+                    } else {
+                        $('.form' + id_fot).addClass('has-danger')
+                        setTimeout(function () {
+                            $('.form' + id_fot).removeClass('has-error')
+                        }, 3000);
+
+                        $('.span' + id_fot).removeClass('hidden').html('Erro ao atualizar registro!')
+                        setTimeout(function () {
+                            $('.span' + id_fot).addClass('hidden')
+                        }, 3000);
+
                     }
                 });
             });

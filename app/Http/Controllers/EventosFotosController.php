@@ -105,9 +105,9 @@ class EventosFotosController extends Controller
             $evento->updated_at = date('Y-m-d H:i:s');
             $evento->save();
 
-            return redirect(url('painel') . '/noticias/' . Route::input('id_eve') . '/fotos')->with('success', 'Registro alterado com sucesso!');
+            return redirect(url('painel') . '/eventos/' . Route::input('id_eve') . '/fotos')->with('success', 'Registro alterado com sucesso!');
         }
-        return redirect(url('painel') . '/noticias/' . Route::input('id_eve') . '/fotos')->with('error', 'Não foi possível alterar foto destaque!');
+        return redirect(url('painel') . '/eventos/' . Route::input('id_eve') . '/fotos')->with('error', 'Não foi possível alterar foto destaque!');
     }
 
     public function legenda()
